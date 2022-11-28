@@ -5,8 +5,8 @@ sources:
 - https://github.com/timwalls/mastodon-chart
 - https://github.com/tootsuite/mastodon
 maintainers:
-- email: tim.walls@snowgoons.com
-  name: timwalls
-version: 3.3.0
-appVersion: 3.3.0
+- email: dt@dave-vlab.com
+  name: davidthamwf
+version: 4.0.2
+appVersion: 4.0.2
 engine: gotpl

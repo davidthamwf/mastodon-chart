@@ -42,6 +42,8 @@ spec:
           - push
           - -q
           - scheduler
+          - -q
+          - ingress
         env:
 {{ include "productonEnvironment" . | indent 8 }}
         resources:
