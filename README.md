@@ -3,7 +3,7 @@
 A Helm chart for [Mastodon](https://github.com/tootsuite/mastodon).
 Mastodon is a free, open-source social network server.
 
-This Helm chart was designed/tested with:
+This Helm chart was designed / tested with:
 
 | Package | Version |
 | ------- | ------- |
