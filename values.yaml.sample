@@ -60,7 +60,8 @@ web:
       accessMode: ReadWriteOnce
       size: 8Gi
     assets:
-      accessMode: ReadWriteOnce
+    # Need RWX in order to be multi-attached by maintenance task pod
+      accessMode: ReadWriteMany 
       size: 8Gi
   resources:
     requests:
