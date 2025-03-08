@@ -1,7 +1,6 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-metadata:
   name: {{ template "name" . }}-post-install
   labels:
     app: {{ template "name" . }}
@@ -22,6 +21,16 @@ spec:
         release: {{ .Release.Name }}
     spec:
       restartPolicy: Never
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app.kubernetes.io/part-of
+                    operator: In
+                    values:
+                      - rails
+              topologyKey: kubernetes.io/hostname
       containers:
       - name: {{ template "name" . }}-post-install-job
         image: "{{ .Values.web.image }}:{{ .Values.web.imageTag }}"

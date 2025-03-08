@@ -79,6 +79,8 @@ Production environment for mastodon
   value: "{{ .Values.env.s3.awsAccessKeyId }}"
 - name: AWS_SECRET_ACCESS_KEY
   value: "{{ .Values.env.s3.awsSecretAccessKey }}"
+- name: S3_READ_TIMEOUT
+  value: "{{ .Values.env.s3.timeout }}"
 - name: S3_REGION
   value: "{{ .Values.env.s3.region }}"
 - name: S3_PROTOCOL

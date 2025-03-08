@@ -1,12 +1,12 @@
 apiVersion: v2
-description: A Helm chart for Mastodon
+description: A Helm chart for Mastodon, a free, open-source social network server based on ActivityPub.
 name: mastodon
 sources:
 - https://github.com/timwalls/mastodon-chart
-- https://github.com/tootsuite/mastodon
+- https://github.com/mastodon/chart
 maintainers:
 - email: dt@dave-vlab.com
   name: davidthamwf
-version: 4.0.2
-appVersion: 4.0.2
+version: 5.1.1
+appVersion: v4.2.8
 engine: gotpl

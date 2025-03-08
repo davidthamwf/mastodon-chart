@@ -15,6 +15,16 @@ spec:
       template:
         spec:
           restartPolicy: OnFailure
+          affinity:
+            podAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                - labelSelector:
+                    matchExpressions:
+                      - key: app.kubernetes.io/part-of
+                        operator: In
+                        values:
+                          - rails
+                  topologyKey: kubernetes.io/hostname
           containers:
           - name: {{ template "name" . }}-maintenance
             image: "{{ .Values.web.image }}:{{ .Values.web.imageTag }}"
@@ -22,7 +32,7 @@ spec:
             command: ["/bin/sh"]
             args:
             - "-c"
-            - "tootctl media remove --days={{ .Values.web.keepMediaDays }} && tootctl statuses remove"
+            - "tootctl accounts prune && tootctl media remove --days={{ .Values.web.keepMediaDays }} && tootctl statuses remove && tootctl preview_cards remove --days={{ .Values.web.keepMediaDays }}"
             env:
 {{ include "productonEnvironment" . | indent 12 }}
             volumeMounts:

@@ -13,6 +13,8 @@ spec:
   selector:
     matchLabels:
       app: {{ template "name" . }}
+      component: "{{ .Values.sidekiq.name }}"
+      app.kubernetes.io/part-of: rails
   strategy:
     type: RollingUpdate
   template:
@@ -20,8 +22,19 @@ spec:
       labels:
         app: {{ template "name" . }}
         component: "{{ .Values.sidekiq.name }}"
+        app.kubernetes.io/part-of: rails
         release: {{ .Release.Name }}
     spec:
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app.kubernetes.io/part-of
+                    operator: In
+                    values:
+                      - rails
+              topologyKey: kubernetes.io/hostname
       containers:
       - name: {{ template "name" . }}-{{ .Values.sidekiq.name }}
         image: "{{ .Values.sidekiq.image }}:{{ .Values.sidekiq.imageTag }}"
