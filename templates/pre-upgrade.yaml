@@ -21,16 +21,6 @@ spec:
         release: {{ .Release.Name }}
     spec:
       restartPolicy: Never
-      affinity:
-        podAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            - labelSelector:
-                matchExpressions:
-                  - key: app.kubernetes.io/part-of
-                    operator: In
-                    values:
-                      - rails
-              topologyKey: kubernetes.io/hostname
       containers:
       - name: {{ template "name" . }}-pre-upgrade-job
         image: "{{ .Values.web.image }}:{{ .Values.web.imageTag }}"

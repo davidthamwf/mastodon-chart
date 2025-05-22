@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mastodon-mastodon-web-system-old
+  namespace: mastodon
+spec:
+  storageClassName: longhorn  # Must match the PV's storage class
+  volumeName: pvc-1fe1459d-1fa7-4938-9797-08e10103866a # Explicitly bind to the PV
+  accessModes:
+    - ReadWriteMany  # Must match the PV's access mode
+  resources:
+    requests:
+      storage: 8Gi  # Must match the PV's capacity

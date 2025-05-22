@@ -1,0 +1,35 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  namespace: mastodon  # namespace where the PVC's exist
+  name: volume-migration-web-system
+spec:
+  completions: 1
+  parallelism: 1
+  backoffLimit: 3
+  template:
+    metadata:
+      name: volume-migration-web-system
+      labels:
+        name: volume-migration-web-system
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: migrator
+          image: alpine:latest
+          command: ["/bin/sh", "-c"]
+          args:
+            - apk add --no-cache rsync && 
+              rsync -aHAXv --delete /mnt/old/ /mnt/new/
+          volumeMounts:
+            - name: old-vol
+              mountPath: /mnt/old
+            - name: new-vol
+              mountPath: /mnt/new
+      volumes:
+        - name: old-vol
+          persistentVolumeClaim:
+            claimName: mastodon-mastodon-web-system-old # change to data source PVC
+        - name: new-vol
+          persistentVolumeClaim:
+            claimName: mastodon-mastodon-web-system # change to data target PVC
